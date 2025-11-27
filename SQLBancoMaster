@@ -1,0 +1,34 @@
+CREATE DATABASE BancoMaster;
+
+USE BancoMaster;
+CREATE TABLE Livros(
+idLivro UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
+tituloLivro NVARCHAR(100) NOT NULL,
+anoPublicacao INT NOT NULL,
+quantDisponivel INT DEFAULT 0 NOT NULL,
+nomeAutor NVARCHAR(100)
+);
+
+CREATE TABLE Clientes(
+idCliente UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
+nomeCliente NVARCHAR(100) NOT NULL,
+emailCliente VARCHAR(100) NOT NULL,
+senhaCliente NVARCHAR(16) NOT NULL,
+);
+
+CREATE TABLE Emprestimos(
+idEmprestimo UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
+dataEmprestimo DATETIME NOT NULL,
+dataDevolucao DATETIME NOT NULL,
+idLivro UNIQUEIDENTIFIER NOT NULL,
+idCliente UNIQUEIDENTIFIER NOT NULL,
+CONSTRAINT FK_EmprestimoLivro FOREIGN KEY (idLivro) REFERENCES Livros(idLivro),
+CONSTRAINT FK_EmprestimoCliente FOREIGN KEY (idCliente) REFERENCES Clientes(idCliente),
+);
+
+
+1. Modelagem do Banco de Dados:
+Livros (título, ano de publicação, quantidade de exemplares, nomeAutor)
+Clientes (nome, email, senha)
+Empréstimos (data de empréstimo, data de devolução, idLivro, idCliente)
+Incluir os atributos principais de cada entidade e as relações entre elas (cardinalidades).
